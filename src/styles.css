@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+.pointer {
+  cursor: pointer;
+}
+
+.mat-text {
+  color: #673ab7;
+}
+
+.mat-bg-primary {
+  background-color: #673ab7;
+}
+
+.word-wrap {
+  word-wrap: break-word;
+  white-space: initial;
+}

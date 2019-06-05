@@ -1,0 +1,29 @@
+<mat-progress-bar *ngIf="loading" class="m-1" mode="indeterminate" color="warn"></mat-progress-bar>
+<div class="container">
+  <p>Demo Credentials:
+  wayfair@example.com : wayfair123
+  </p>
+  <div class="row justify-content-center">
+    <div class="mt-3 col-12">
+      <div class="row">
+        <div class="col-sm">
+          <img class="w-100" src="assets/Zonal.svg" alt="">
+        </div>
+        <div class="w-100 text-center col-sm align-items-center">
+          <mat-form-field class="w-100">
+            <input type="email" #email matInput placeholder="Email" autofocus required>
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input type="password" #password matInput placeholder="Password" required>
+          </mat-form-field>
+          <br>
+          <button (click)="login(email.value,password.value)" mat-flat-button
+                  color="primary">Login
+          </button>
+          <p class="text-warning"> {{error}}</p>
+          <button routerLink="/register" class="mt-3 w-100" mat-flat-button color="accent">Register</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

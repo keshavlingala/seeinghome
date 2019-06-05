@@ -1,0 +1,41 @@
+<div class="container text-center">
+  <form *ngIf="!loading" class="m-3" #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <!--    title-->
+    <mat-form-field class="w-100">
+      <input name="title" required #title="ngModel"
+             placeholder="Title" matInput
+             [(ngModel)]="postData.title"
+             type="text">
+    </mat-form-field>
+    <br>
+    <!--    upload-->
+    <input placeholder="Upload"
+           (change)="imageSelected($event)"
+           type="file">
+    <span class="text-warning small">{{warnMessage}}</span>
+    <br>
+    <!--    description-->
+    <mat-form-field class="w-100">
+      <input placeholder="Description"
+             name="description"
+             #description="ngModel"
+             matInput [(ngModel)]="postData.description"
+             type="text">
+    </mat-form-field>
+    <br>
+
+    <!--    sumbit button-->
+    <button mat-flat-button
+            color="primary"
+            [disabled]="form.invalid || !isValid()">Upload
+    </button>
+  </form>
+  <div *ngIf="loading">
+    <div class="row justify-content-around text-center m-5">
+      <mat-spinner mode="indeterminate">
+      </mat-spinner>
+    </div>
+    <br>
+    <h3>Status: {{status}}</h3>
+  </div>
+</div>

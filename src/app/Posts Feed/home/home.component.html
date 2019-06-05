@@ -1,0 +1,34 @@
+<div class="text-center m-3">
+  <button matTooltip="Add New post" (click)="openDialog()" color="primary" mat-flat-button>Add new Post</button>
+</div>
+<div *ngIf="spinner" class="row mt-3 justify-content-around">
+  <mat-spinner mode="indeterminate" color="warn"></mat-spinner>
+</div>
+<div class="container">
+  <div class="row justify-content-around">
+    <div data-aos="zoom-in" *ngFor="let card of posts" class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+      <mat-card class="m-2">
+        <mat-card-header>
+          <img matTooltip="View {{card.owner.name}}'s Profile" [routerLink]="['/profile',card.owner.uid]"
+               class="pointer" mat-card-avatar
+               [src]="card.owner.profileURL"
+               alt="">
+          <mat-card-title>{{card.title}}</mat-card-title>
+          <mat-card-subtitle class="pointer" [routerLink]="['/profile',card.owner.uid]">
+            {{card.owner.name }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="card.imageURL" alt="">
+        <mat-card-content>
+          {{card.description}}
+        </mat-card-content>
+        <p>{{card.likes}} likes</p>
+        <mat-card-actions>
+          <button matTooltip="Give A Like?" (click)="like(card)" mat-button>
+            <mat-icon color="primary">thumb_up</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

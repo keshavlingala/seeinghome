@@ -1,0 +1,38 @@
+<div class="container overflow-hidden">
+  <div class="row justify-content-around mt-5">
+    <div class="col-4">
+      <img class="w-100" [src]="userData.profilePicURL" alt="">
+    </div>
+  </div>
+  <div class="text-center mt-3">
+    <h2>{{userData.firstName + ' ' + userData.lastName}}</h2>
+  </div>
+  <h3>Posts</h3>
+  <div class="row justify-content-between overflow-hidden">
+    <div data-aos="fade-left" class="col-sm-12 col-lg-6 col-md-6" *ngFor="let card of posts">
+      <mat-card class="m-2">
+        <mat-card-header>
+          <img mat-card-avatar [src]="card.owner.profileURL" alt="">
+          <mat-card-title>{{card.title}}</mat-card-title>
+          <mat-card-subtitle>
+            {{card.owner.name }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="card.imageURL" alt="">
+        <mat-card-content>
+          {{card.description}}
+        </mat-card-content>
+        <p>{{card.likes}} likes</p>
+        <mat-card-actions>
+          <button matTooltip="Give a Like?" (click)="like(card)" mat-flat-button>
+            <mat-icon color="primary">thumb_up</mat-icon>
+          </button>
+          <button *ngIf="this.profileUID==authService.getUID()" (click)="deletePost(card)" matTooltip="Delete Post"
+                  mat-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

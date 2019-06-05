@@ -1,0 +1,58 @@
+<!--Add Event-->
+<mat-expansion-panel #panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Add New Event
+    </mat-panel-title>
+    <mat-panel-description>
+
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div class="container">
+    <form (ngSubmit)="OnSubmit(panel)" #form="ngForm">
+      <mat-form-field class="w-100">
+        <input required placeholder="Event Name" name="name" matInput [(ngModel)]="eventData.name" type="text">
+      </mat-form-field>
+      <br>
+      <mat-form-field class="w-100">
+        <input required matInput name="venue" type="text" placeholder="Venue" [(ngModel)]="eventData.venue">
+      </mat-form-field>
+      <br>
+      <mat-form-field class="w-100">
+        <input matInput required [matDatepicker]="picker" placeholder="Select Event Date"
+               (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('input', $event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker></mat-datepicker>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="w-100">
+        <input value="00:00" #time (change)="timeSelected(time)" required type="time" matInput
+               placeholder="24 hrs Format">
+      </mat-form-field>
+      <p class="text-warning">{{error}}</p>
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || !isValid()">Submit</button>
+    </form>
+  </div>
+</mat-expansion-panel>
+<!--display events-->
+<div class="container-fluid">
+  <mat-card data-aos="flip-left" *ngFor="let event of events" class="col-sm-12 col-lg-6 col-md-6 m-3">
+    <mat-card-header>
+      <mat-card-title>
+        {{event.name}}
+      </mat-card-title>
+      <i mat-card-avatar class="fa fa-calendar "></i>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{event.venue}} <br>
+        {{event.date.seconds * 1000 | date:'medium'}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button matTooltip="Delete Event" mat-button (click)="deleteEvent(event)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

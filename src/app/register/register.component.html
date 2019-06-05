@@ -1,0 +1,62 @@
+<div class="container">
+  <form #form="ngForm" (ngSubmit)="onSubmit(emailInput.value,passwordInput.value)"
+        class="text-center border border-light p-5">
+    <p class="h4 mb-4">Sign up</p>
+    <!--    Firstname and last name-->
+    <div class="row">
+      <mat-form-field class="w-100 col-sm">
+        <input required [(ngModel)]="userData.firstName" #firstName="ngModel" matInput name="firstName" type="text"
+               placeholder="First name">
+      </mat-form-field>
+      <mat-form-field class="w-100 col-sm">
+        <input required [(ngModel)]="userData.lastName" matInput type="text" #lastName="ngModel" name="lastName"
+               placeholder="Last name">
+      </mat-form-field>
+    </div>
+    <!--    Email-->
+    <mat-form-field class="w-100">
+      <input
+        #emailInput="ngModel" name="email" [(ngModel)]="userData.email" matInput type="email" placeholder="Email"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        required>
+    </mat-form-field>
+    <!--    Password-->
+    <mat-form-field class="w-100">
+      <input #passwordInput
+             matInput type="password"
+             placeholder="Password"
+             required>
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <input #phone="ngModel"
+             [(ngModel)]="userData.phone"
+             maxlength="10"
+             pattern="^\d{10}$"
+             name="phone" matInput type="tel"
+             placeholder="Phone no">
+    </mat-form-field>
+
+    <!--    Roll No.-->
+
+    <label>
+      Upload Profile Picture
+      <input class="mat-button" type="file" (change)="fileSelected($event)">
+    </label><br>
+    <span class="small text-warning" #fileMessage></span>
+    <button *ngIf="!loading" mat-flat-button color="primary" class="w-100"
+            [disabled]="!isValid(fileMessage) || form.invalid"
+            type="submit">Sign in
+    </button>
+    <div *ngIf="loading" class="mt-3">
+      <div class="row justify-content-around">
+        <mat-spinner>
+        </mat-spinner>
+      </div>
+      <span class="small">{{status}}</span>
+    </div>
+
+    <hr>
+  </form>
+
+</div>

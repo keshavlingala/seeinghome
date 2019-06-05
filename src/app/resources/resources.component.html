@@ -1,0 +1,71 @@
+<div class="text-center">
+  <p class="text-info mt-3">
+    This is where everyone can Update Status on Various Issues and Interact with others
+  </p>
+</div>
+<div class="container overflow-hidden">
+  <form #form="ngForm" (ngSubmit)="addRes(form)">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>What's going on?
+        <mat-icon>{{statusData.emotion}}</mat-icon>
+      </mat-label>
+      <textarea required class="w-100" rows="5" name="Status" [(ngModel)]="statusData.data" matInput>
+      </textarea>
+      <div class="row">
+        <button type="submit" [disabled]="loading || form.invalid" class="m-2" color="primary"
+                mat-flat-button>{{loading ? 'Uploading...' : 'Update'}}
+        </button>
+        <mat-icon *ngFor="let s of sentiments" (click)="selectEmoji(s)" class="m-2 pointer">{{s}}</mat-icon>
+        <mat-hint class="m-2">
+          Select Status Mood
+        </mat-hint>
+      </div>
+    </mat-form-field>
+  </form>
+  <mat-card *ngFor="let stat of allStatus" class="m-3 border border-primary rounded">
+    <mat-card-header>
+      <img mat-card-avatar [src]="stat.owner.profileURL" alt="">
+      <mat-card-title class="mat-text">
+        {{stat.owner.name}}
+      </mat-card-title>
+      <mat-icon color="primary" class="ml-3">{{stat.emotion}}</mat-icon>
+      <span class="flex-fill"></span>
+      <mat-icon class="pointer" *ngIf="stat.owner.uid===auth.getUID()" [matMenuTriggerFor]="options">more_vert
+      </mat-icon>
+    </mat-card-header>
+    <mat-menu #options="matMenu">
+      <button mat-button *ngIf="stat.owner.uid===auth.getUID()" (click)="deletePost(stat)">
+        Delete Status
+      </button>
+    </mat-menu>
+    <mat-card-content class="p-3">
+      <h6>{{stat.data}}</h6>
+    </mat-card-content>
+    <mat-card-actions class="w-100">
+      <div class="row justify-content-around">
+        <button (click)="thumbUp(stat)" mat-button>
+          <mat-icon class="pointer">thumb_up</mat-icon>
+          {{stat.likes}} likes
+        </button>
+        <button (click)="sharestat(stat)" mat-button>
+          <mat-icon class="pointer">share</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
+    <mat-card-footer>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Comment..</mat-label>
+        <input #commentelement (keyup.enter)="comment(stat,commentelement)" matInput type="text">
+        <mat-icon (click)="comment(stat,commentelement)" class="pointer" matSuffix>send</mat-icon>
+      </mat-form-field>
+    </mat-card-footer>
+    <mat-list>
+      <h3 mat-subheader>Comments</h3>
+      <mat-list-item *ngFor="let c of stat.comments">
+        <img mat-list-icon [src]="c.owner.profileURL" alt="">
+        <h5 mat-line>{{c.comment}}</h5>
+        <p class="text-info" mat-line>{{c.owner.name}}</p>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>

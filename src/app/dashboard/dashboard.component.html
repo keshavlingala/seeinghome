@@ -1,0 +1,48 @@
+<mat-toolbar class="overflow-hidden" *ngIf="authService.user && !authService.user.emailVerified" color="warn">
+  <span #message>Please Verify Email</span>
+  <span class="flex-fill"></span>
+  <button (click)="verifyEmail(message)" mat-button>Verify</button>
+</mat-toolbar>
+<div class="container-fluid overflow-hidden">
+  <div class="row justify-content-around">
+    <div routerLink="/home" class="text-center col-sm m-3 hvr-grow-rotate  pointer">
+      <mat-card>
+        <i class="fa fa-rss fa-5x mat-text"></i> <br>
+        <h1>Posts Zone</h1>
+        <mat-card-content>
+          <p>Posts Feed Lets you see all the posts uploaded by the fellow students</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div routerLink="/events" class="text-center col-sm m-3 hvr-grow-rotate  pointer">
+      <mat-card>
+        <i class="fa fa-calendar fa-5x mat-text"></i>
+        <br>
+        <h1>Event Zone</h1>
+        <mat-card-content>
+          <p>Calender Feed Lets you see all the Upcoming Events schedules </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row justify-content-around">
+    <div routerLink="/quiz" class="text-center col-sm m-3 hvr-grow-rotate  pointer">
+      <mat-card>
+        <i class="fa fa-users fa-5x mat-text"></i> <br>
+        <h1>Quiz Zone</h1>
+        <mat-card-content>
+          <p>Here You Can Upload Quizzes and Anyone can Answer let's you improve your skills</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div routerLink="/resources" class="text-center col-sm m-3 hvr-grow-rotate  pointer">
+      <mat-card>
+        <i class="fa fa-archive fa-5x mat-text"></i> <br>
+        <h1>Status Zone</h1>
+        <mat-card-content>
+          <p>Posts Feed Lets you see all the posts uploaded by the fellow students</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<mat-tab-group mat-stretch-tabs>
+  <!--  attempt quiz tab-->
+  <mat-tab [matBadge]="quizzes.length" matTooltip="View All Questions" label="Attempt Quizzes">
+    <div class="container">
+      <mat-card class="m-3" *ngFor="let qes of quizzes">
+        <h4 mat-card-title>{{qes.question}}</h4>
+        <mat-card-subtitle class="text-success"
+                           *ngIf="qes.answered.includes(authService.getUID())">Your Answered Correct
+        </mat-card-subtitle>
+        <mat-card-subtitle class="text-warning"
+                           *ngIf="qes.wrongs.includes(authService.getUID())">You Answered Wrong
+        </mat-card-subtitle>
+        <mat-card-content>
+          <mat-list class="ml-3">
+            <mat-list-item *ngFor="let opt of qes.options"
+                           class="m-2 h-100">
+              <button [disabled]="!isAvailable(qes)" (click)="answered(qes,opt)"
+                      class="w-100 h-100"
+                      mat-stroked-button>
+                <span class="word-wrap"> {{opt }}</span>
+              </button>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <p class="text-success small">{{qes.answered.length}} users Answered it Right</p>
+          <p class="text-warning small">{{qes.wrongs.length}} users Missed</p>
+        </mat-card-actions>
+        <mat-card-footer>
+          <p *ngIf="!isAvailable(qes)"> Description: {{qes.solutionDesc}}</p>
+        </mat-card-footer>
+      </mat-card>
+
+    </div>
+  </mat-tab>
+  <!--  add quiz tab-->
+  <mat-tab matTooltip="Add A Question" label="Add Your own Question">
+    <div class="container">
+      <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <mat-form-field class="w-100">
+          <input required placeholder="Question" name="question" [(ngModel)]="quiz.question" matInput type="text">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput placeholder="Option" #option type="text">
+        </mat-form-field>
+        <button [disabled]="option.value===''" color="primary" mat-button (click)="createOption(option)">Add Option
+        </button>
+        <br>
+        <span mat-subheader>Choose the correct Option</span>
+        <mat-radio-group name="correct_answer" [(ngModel)]="quiz.correctAns" class="radio-group">
+          <mat-radio-button [value]="option" *ngFor="let option of quiz.options">
+            {{option}}
+          </mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field>
+          <input placeholder="Solution Description" name="solution" [(ngModel)]="quiz.solutionDesc" matInput
+                 type="text">
+        </mat-form-field>
+        <br>
+        <button type="submit" mat-flat-button color="primary" [disabled]="form.invalid || !isValid()">Submit Question
+        </button>
+      </form>
+    </div>
+  </mat-tab>
+</mat-tab-group>

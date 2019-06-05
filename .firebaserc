@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "seeingsweethome"
+  },
+  "targets": {
+    "seeingsweethome": {
+      "hosting": {
+        "seeingsweethome": [
+          "seeingsweethome"
+        ],
+        "seeinghome": [
+          "seeinghome"
+        ]
+      }
+    }
+  }
+}
